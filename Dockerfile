@@ -5,6 +5,8 @@
 FROM kdelfour/supervisor-docker
 MAINTAINER Kevin Delfour <kevin@delfour.eu>
 
+ARG RUBY_MM=2.3
+ARG RUBY_B=3
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
@@ -14,7 +16,14 @@ RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git lib
 # Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y nodejs
-    
+
+# ------------------------------------------------------------------------------
+# Install Ruby
+WORKDIR /ruby
+RUN curl https://cache.ruby-lang.org/pub/ruby/$RUBY_MM/ruby-$RUBY_MM.$RUBY_B.tar.gz | tar xvz
+RUN ./configure && make && make install
+RUN gem install bundler rake
+
 # ------------------------------------------------------------------------------
 # Install Cloud9
 RUN git clone https://github.com/c9/core.git /cloud9
