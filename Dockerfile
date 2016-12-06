@@ -21,7 +21,7 @@ RUN apt-get install -y nodejs
 # Install Ruby
 WORKDIR /ruby
 RUN curl https://cache.ruby-lang.org/pub/ruby/$RUBY_MM/ruby-$RUBY_MM.$RUBY_B.tar.gz | tar xvz
-RUN ./configure && make && make install
+RUN cd ruby-$RUBY_MM.$RUBY_B && ./configure && make && make install
 RUN gem install bundler rake
 
 # ------------------------------------------------------------------------------
