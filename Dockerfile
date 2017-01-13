@@ -33,6 +33,8 @@ RUN scripts/install-sdk.sh
 # Tweak standlone.js conf
 RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js 
 
+RUN npm i -g c9
+
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
 
@@ -40,6 +42,7 @@ ADD conf/cloud9.conf /etc/supervisor/conf.d/
 # Add volumes
 RUN mkdir /workspace
 VOLUME /workspace
+VOLUME /root
 
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
