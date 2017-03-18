@@ -2,7 +2,7 @@
 # Based on a work at https://github.com/docker/docker.
 # ------------------------------------------------------------------------------
 # Pull base image.
-FROM kdelfour/supervisor-docker
+FROM node
 MAINTAINER Kevin Delfour <kevin@delfour.eu>
 
 ARG RUBY_MM=2.3
@@ -55,4 +55,4 @@ EXPOSE 3000
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD "node /cloud9/server.js --listen 0.0.0.0 --port 80 -w /workspace"
